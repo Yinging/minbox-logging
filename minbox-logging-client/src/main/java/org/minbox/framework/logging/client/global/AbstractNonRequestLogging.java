@@ -1,16 +1,17 @@
 package org.minbox.framework.logging.client.global;
 
-import org.minbox.framework.logging.core.GlobalLog;
-import org.minbox.framework.logging.core.GlobalLogLevel;
+import org.minbox.framework.logging.core.LogLevel;
+import org.minbox.framework.logging.core.NonRequestLog;
 import org.springframework.util.ObjectUtils;
 
 /**
- * GlobalLogging abstract implementation
+ * The {@link NonRequestLogging} abstract implementation
+ * <p>
  * Provide public methods required for log acquisition
  *
  * @author 恒宇少年
  */
-public abstract class AbstractGlobalLogging implements GlobalLogging {
+public abstract class AbstractNonRequestLogging implements NonRequestLogging {
     /**
      * Get the StackTrace of the initial calling method
      * caller class name {@link StackTraceElement#getClassName()}
@@ -21,9 +22,9 @@ public abstract class AbstractGlobalLogging implements GlobalLogging {
      * info、debug、error level log method invocation process：
      * 0. {@link #getCallMethodStackTrace()}
      * 1. {@link #getCallerClassName()} or {@link #getCallerMethodName()} or {@link #getCallerCodeLineNumber()}
-     * 2. {@link #instanceGlobalLog()}
-     * 3. {@link #buildGlobalLog(GlobalLogLevel, String)}
-     * 4. {@link GlobalLogging#info(String)}
+     * 2. {@link #instanceNonRequestLog()}
+     * 3. {@link #buildNonRequestLog(LogLevel, String)}
+     * 4. {@link NonRequestLogging#info(String)}
      * 5. Real business call method
      * </p>
      *
@@ -62,31 +63,31 @@ public abstract class AbstractGlobalLogging implements GlobalLogging {
     }
 
     /**
-     * create the {@link GlobalLog} object instance
+     * create the {@link NonRequestLog} object instance
      * initialization set call information
      *
-     * @return {@link GlobalLog}
+     * @return {@link NonRequestLog}
      */
-    protected GlobalLog instanceGlobalLog() {
-        GlobalLog globalLog = new GlobalLog();
-        globalLog.setCallerClass(getCallerClassName());
-        globalLog.setCallerMethod(getCallerMethodName());
-        globalLog.setCallerCodeLineNumber(getCallerCodeLineNumber());
-        return globalLog;
+    protected NonRequestLog instanceNonRequestLog() {
+        NonRequestLog nonRequestLog = new NonRequestLog();
+        nonRequestLog.setCallerClass(getCallerClassName());
+        nonRequestLog.setCallerMethod(getCallerMethodName());
+        nonRequestLog.setCallerCodeLineNumber(getCallerCodeLineNumber());
+        return nonRequestLog;
     }
 
     /**
-     * Build Global Log Instance
+     * Build {@link NonRequestLog} instance
      *
-     * @param level   {@link GlobalLogLevel}
-     * @param content {@link GlobalLog#getContent()}
-     * @return {@link GlobalLog}
+     * @param level   {@link LogLevel}
+     * @param content {@link NonRequestLog#getContent()}
+     * @return {@link NonRequestLog}
      */
-    protected GlobalLog buildGlobalLog(GlobalLogLevel level, String content) {
-        GlobalLog globalLog = instanceGlobalLog();
-        globalLog.setLevel(level);
-        globalLog.setContent(content);
-        return globalLog;
+    protected NonRequestLog buildNonRequestLog(LogLevel level, String content) {
+        NonRequestLog nonRequestLog = instanceNonRequestLog();
+        nonRequestLog.setLevel(level);
+        nonRequestLog.setContent(content);
+        return nonRequestLog;
     }
 
     /**
