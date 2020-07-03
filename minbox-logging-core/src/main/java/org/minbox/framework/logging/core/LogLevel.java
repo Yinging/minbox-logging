@@ -3,13 +3,14 @@ package org.minbox.framework.logging.core;
 import lombok.Getter;
 
 /**
- * Global Log Level
+ * Log Level
  *
  * @author 恒宇少年
  */
 @Getter
-public enum GlobalLogLevel {
+public enum LogLevel {
     debug,
     info,
+    warn,
     error
 }
