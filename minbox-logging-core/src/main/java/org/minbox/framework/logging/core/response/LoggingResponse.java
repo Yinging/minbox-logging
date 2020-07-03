@@ -18,7 +18,7 @@
 package org.minbox.framework.logging.core.response;
 
 import lombok.Data;
-import org.minbox.framework.logging.core.MinBoxLog;
+import org.minbox.framework.logging.core.RequestLog;
 
 import java.sql.Timestamp;
 
@@ -28,7 +28,7 @@ import java.sql.Timestamp;
  * @author 恒宇少年
  */
 @Data
-public class LoggingResponse extends MinBoxLog {
+public class LoggingResponse extends RequestLog {
     /**
      * The request logs create time
      */

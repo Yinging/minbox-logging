@@ -49,7 +49,7 @@ public class LoggingClientNotice implements Serializable {
     /**
      * ApiBoot Logging Request Log
      */
-    private List<MinBoxLog> loggers = new ArrayList<>();
+    private List<RequestLog> loggers = new ArrayList<>();
 
     /**
      * Create new {@link LoggingClientNotice} instance
@@ -61,7 +61,7 @@ public class LoggingClientNotice implements Serializable {
      * @return {@link LoggingClientNotice}
      */
     public static LoggingClientNotice instance(
-            String clientServiceId, String clientServiceIp, Integer clientServicePort, List<MinBoxLog> loggers) {
+            String clientServiceId, String clientServiceIp, Integer clientServicePort, List<RequestLog> loggers) {
         LoggingClientNotice notice = new LoggingClientNotice();
         notice.setClientServiceId(clientServiceId);
         notice.setClientServiceIp(clientServiceIp);
