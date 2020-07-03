@@ -18,8 +18,8 @@
 package org.minbox.framework.logging.admin.storage;
 
 import com.alibaba.fastjson.JSON;
-import org.minbox.framework.logging.core.GlobalLog;
-import org.minbox.framework.logging.core.MinBoxLog;
+import org.minbox.framework.logging.core.NonRequestLog;
+import org.minbox.framework.logging.core.RequestLog;
 import org.minbox.framework.logging.core.response.LoggingResponse;
 import org.minbox.framework.logging.core.response.ServiceResponse;
 import org.slf4j.Logger;
@@ -95,12 +95,12 @@ public class LoggingDataSourceStorage implements LoggingStorage {
      * Insert Global log
      *
      * @param requestLogId request log id
-     * @param log          {@link GlobalLog}
+     * @param log          {@link NonRequestLog}
      * @return the global log id
      * @throws SQLException
      */
     @Override
-    public String insertGlobalLog(String requestLogId, GlobalLog log) throws SQLException {
+    public String insertGlobalLog(String requestLogId, NonRequestLog log) throws SQLException {
         Connection connection = getConnection();
         PreparedStatement ps = connection.prepareStatement(SQL_INSERT_GLOBAL_LOG);
         String globalLogId = UUID.randomUUID().toString();
@@ -112,7 +112,7 @@ public class LoggingDataSourceStorage implements LoggingStorage {
         ps.setString(6, log.getCallerMethod());
         ps.setInt(7, log.getCallerCodeLineNumber());
         ps.setString(8, log.getExceptionStack());
-        ps.setLong(9, log.getCreateTime());
+        ps.setLong(9, log.getStartTime());
         ps.executeUpdate();
         ps.close();
         closeConnection(connection);
@@ -127,7 +127,7 @@ public class LoggingDataSourceStorage implements LoggingStorage {
      * @throws SQLException SqlException
      */
     @Override
-    public String insertLog(String serviceDetailId, MinBoxLog log) throws SQLException {
+    public String insertLog(String serviceDetailId, RequestLog log) throws SQLException {
         Connection connection = getConnection();
         PreparedStatement ps = connection.prepareStatement(SQL_INSERT_LOG);
         String logId = UUID.randomUUID().toString();

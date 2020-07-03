@@ -1,7 +1,7 @@
 package org.minbox.framework.logging.admin.storage;
 
-import org.minbox.framework.logging.core.GlobalLog;
-import org.minbox.framework.logging.core.MinBoxLog;
+import org.minbox.framework.logging.core.NonRequestLog;
+import org.minbox.framework.logging.core.RequestLog;
 import org.minbox.framework.logging.core.response.LoggingResponse;
 import org.minbox.framework.logging.core.response.ServiceResponse;
 
@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class LoggingDefaultStorage implements LoggingStorage {
     @Override
-    public String insertGlobalLog(String requestLogId, GlobalLog log) throws SQLException {
+    public String insertGlobalLog(String requestLogId, NonRequestLog log) throws SQLException {
         return null;
     }
 
     @Override
-    public String insertLog(String serviceDetailId, MinBoxLog log) throws SQLException {
+    public String insertLog(String serviceDetailId, RequestLog log) throws SQLException {
         return null;
     }
 
