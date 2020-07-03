@@ -20,16 +20,16 @@ package org.minbox.framework.logging.core;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 /**
- * ApiBoot Log Object
+ * Basic definition of link tracking log
+ * <p>
+ * Contains common usage fields for request logs and non-request logs
  *
  * @author：恒宇少年 - 于起宇
  */
 @Data
-public class MinBoxLog implements Serializable {
+public class TraceLog implements Serializable {
     /**
      * trace id
      */
@@ -43,21 +43,9 @@ public class MinBoxLog implements Serializable {
      */
     private String parentSpanId;
     /**
-     * request uri
+     * service id
      */
-    private String requestUri;
-    /**
-     * request method
-     */
-    private String requestMethod;
-    /**
-     * http status code
-     */
-    private int httpStatus;
-    /**
-     * request ip
-     */
-    private String requestIp;
+    private String serviceId;
     /**
      * service ip address
      */
@@ -79,35 +67,7 @@ public class MinBoxLog implements Serializable {
      */
     private long timeConsuming;
     /**
-     * service id
-     */
-    private String serviceId;
-    /**
-     * request headers
-     */
-    private Map<String, String> requestHeaders;
-    /**
-     * request param
-     */
-    private String requestParam;
-    /**
-     * request body
-     */
-    private String requestBody;
-    /**
-     * response headers
-     */
-    private Map<String, String> responseHeaders;
-    /**
-     * response body
-     */
-    private String responseBody;
-    /**
      * exception stack
      */
     private String exceptionStack;
-    /**
-     * Global method log list
-     */
-    private List<GlobalLog> globalLogs;
 }
