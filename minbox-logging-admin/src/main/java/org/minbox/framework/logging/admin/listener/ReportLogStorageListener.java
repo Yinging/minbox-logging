@@ -21,9 +21,9 @@ import org.minbox.framework.logging.admin.LoggingAdminFactoryBean;
 import org.minbox.framework.logging.admin.endpoint.LoggingEndpoint;
 import org.minbox.framework.logging.admin.event.ReportLogEvent;
 import org.minbox.framework.logging.admin.storage.LoggingStorage;
-import org.minbox.framework.logging.core.GlobalLog;
 import org.minbox.framework.logging.core.LoggingClientNotice;
-import org.minbox.framework.logging.core.MinBoxLog;
+import org.minbox.framework.logging.core.NonRequestLog;
+import org.minbox.framework.logging.core.RequestLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEvent;
@@ -97,10 +97,8 @@ public class ReportLogStorageListener implements SmartApplicationListener {
 
             // save logs
             if (!ObjectUtils.isEmpty(notice.getLoggers())) {
-                for (MinBoxLog log : notice.getLoggers()) {
+                for (RequestLog log : notice.getLoggers()) {
                     String requestLogId = loggingStorage.insertLog(serviceDetailId, log);
-                    // save global logs
-                    saveGlobalLogs(requestLogId, log.getGlobalLogs());
                 }
             }
 
@@ -118,9 +116,9 @@ public class ReportLogStorageListener implements SmartApplicationListener {
      * Save the global log contained in each request log
      *
      * @param requestLogId request log id
-     * @param globalLogs   {@link GlobalLog}
+     * @param globalLogs   {@link NonRequestLog}
      */
-    private void saveGlobalLogs(String requestLogId, List<GlobalLog> globalLogs) {
+    private void saveGlobalLogs(String requestLogId, List<NonRequestLog> globalLogs) {
         if (!ObjectUtils.isEmpty(globalLogs) && !ObjectUtils.isEmpty(requestLogId)) {
             globalLogs.forEach(globalLog -> {
                 try {
